@@ -32,7 +32,7 @@ class import_cldr(Command):
 
 setup(
     name='Babel',
-    version='3.0-dev',
+    version='3.0.dev',
     description='Internationalization utilities',
     long_description=\
 """A collection of tools for internationalizing Python applications.""",
@@ -54,7 +54,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-    packages=['babel', 'babel.messages', 'babel.localtime'],
+    packages=['babel', 'babel.messages', 'babel.localtime', 'babel.localedata'],
     package_data={'babel': ['global.dat', 'localedata/*.dat']},
     install_requires=[
         # This version identifier is currently necessary as
