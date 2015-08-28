@@ -28,10 +28,10 @@ def parse_changelog():
                 continue
             length = len(match.group(1))
             version = match.group(1).strip()
-            if lineiter.next().count('-') != len(match.group(0)):
+            if next(lineiter).count('-') != len(match.group(0)):
                 continue
             while 1:
-                change_info = lineiter.next().strip()
+                change_info = next(lineiter).strip()
                 if change_info:
                     break
 
@@ -46,7 +46,7 @@ def parse_changelog():
 
 def bump_version(version):
     try:
-        parts = map(int, version.split('.'))
+        parts = list(map(int, version.split('.')))
     except ValueError:
         fail('Current version is not numeric')
     if parts[-1] != 0:
@@ -93,12 +93,12 @@ def build_and_upload():
 
 
 def fail(message, *args):
-    print >> sys.stderr, 'Error:', message % args
+    print('Error:', message % args, file=sys.stderr)
     sys.exit(1)
 
 
 def info(message, *args):
-    print >> sys.stderr, message % args
+    print(message % args, file=sys.stderr)
 
 
 def get_git_tags():
@@ -136,7 +136,7 @@ def main():
     if version in tags:
         fail('Version "%s" is already tagged', version)
     if release_date.date() != date.today():
-        fail('Release date is not today (%s != %s)')
+        fail('Release date is not today (%s != %s)', release_date.date(), date.today())
 
     if not git_is_clean():
         fail('You have uncommitted changes in git')
